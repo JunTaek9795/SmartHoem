@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
-import vo.ActionForward;
+
+import vo.SmartHomeForward;
 
 @WebServlet("*.bo")
 public class SmartHoemFrontController extends HttpServlet {
@@ -32,34 +32,21 @@ public class SmartHoemFrontController extends HttpServlet {
    		System.out.println(contextPath);
    		String command=requestURI.substring(contextPath.length());
    		System.out.println(command);
-   		ActionForward forward=null;
-   		Action action=null;
+   		SmartHomeForward forward=null;
    		
-   		if(command.equals("/boardWriteForm.bo")) {
-   			//글등록
-   			forward = new ActionForward();
-   			forward.setPath("qna_board_write.jsp"); //포워드할 페이지 주소 셋팅
-   			
-   		
-   		}
-   		
-   		else {
-   			forward = new ActionForward();
-   			forward.setPath("inputerror.jsp");
-   			forward.setRedirect(false);
-   		}
-   		
-   		//위에서 처리가 끝나면나면 페이지이동
    		if(forward.isRedirect()) {
    			response.sendRedirect(forward.getPath());
    		}else {
    			RequestDispatcher dispatcher =request.getRequestDispatcher(forward.getPath());
    			dispatcher.forward(request, response);
    		}
-   		
-   		
-   		
+   		if(command.equals("/SmartHoemList.do")) {
+   			forward = new SmartHomeForward();
+   			forward.setPath("SmartHoemList.jsp");
+   		}
     }
+   		
+   		
     
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
